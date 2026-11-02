@@ -3,17 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Background Colour Changer</title>
+    <meta
+      name="description"
+      content="Pick a background colour, copy its hex code, and get text that stays readable on top of it."
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div>
-      <button id="red">red</button>
-      <button id="blue">blue</button>
-      <button id="green">green</button>
-      <button id="black">black</button>
-      <button id="gray">gray</button>
-    </div>
+    <main class="stage">
+      <header class="stage__head">
+        <h1>Background colour</h1>
+        <p>Pick a colour. The text on this page switches to black or white, whichever is easier to read.</p>
+      </header>
+
+      <section class="readout" aria-labelledby="readout-title">
+        <h2 id="readout-title" class="eyebrow">Current colour</h2>
+        <p class="readout__hex" id="hex-value">#ffffff</p>
+        <p class="readout__meta" id="contrast-note"></p>
+        <div class="readout__actions">
+          <button type="button" id="copy" class="copy">Copy hex code</button>
+          <span id="copy-status" class="copy-status" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Colour controls">
+        <fieldset class="group">
+          <legend>Presets</legend>
+          <div class="swatches" id="presets"></div>
+        </fieldset>
+
+        <form id="custom-form" class="group custom" novalidate>
+          <div class="field">
+            <label for="picker">Custom colour</label>
+            <input type="color" id="picker" value="#ffffff" />
+          </div>
+          <div class="field field--grow">
+            <label for="hex-input">Hex code</label>
+            <div class="inline">
+              <input
+                type="text"
+                id="hex-input"
+                inputmode="text"
+                autocomplete="off"
+                spellcheck="false"
+                maxlength="7"
+                placeholder="#1a2b3c"
+                aria-describedby="hex-error"
+              />
+              <button type="submit" class="apply">Apply</button>
+            </div>
+            <p id="hex-error" class="error" role="alert"></p>
+          </div>
+        </form>
+
+        <section class="group" aria-labelledby="history-title">
+          <div class="group__head">
+            <h2 id="history-title" class="legend">Recent colours</h2>
+            <button type="button" id="clear-history" class="link-btn">Clear</button>
+          </div>
+          <p id="history-empty" class="muted">Colours you pick will show up here.</p>
+          <ul class="swatches" id="history" aria-label="Recent colours"></ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="color.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
